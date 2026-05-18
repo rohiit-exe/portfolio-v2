@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { useMemo } from 'react';
-import { cn } from '@/lib/utils';
+import { motion } from "framer-motion";
+import { useMemo } from "react";
+import { cn } from "@/lib/utils";
 
 interface WaveformProps {
   className?: string;
@@ -29,14 +29,19 @@ export function Waveform({
         const s1 = Math.sin((i / samples) * Math.PI * 6);
         const s2 = Math.sin((i / samples) * Math.PI * 14) * 0.4;
         const s3 = Math.sin((i / samples) * Math.PI * 22) * 0.2;
-        return Math.abs((s1 + s2 + s3) / 1.6) * amplitude + 1;
+        return Number(
+          (Math.abs((s1 + s2 + s3) / 1.6) * amplitude + 1).toFixed(2)
+        );
       }),
-    [samples, amplitude],
+    [samples, amplitude]
   );
 
   return (
     <div
-      className={cn('flex h-10 w-full items-center justify-between gap-[2px] opacity-70', className)}
+      className={cn(
+        "flex h-10 w-full items-center justify-between gap-[2px] opacity-70",
+        className
+      )}
       role="img"
       aria-label="Decorative audio waveform"
     >
@@ -54,7 +59,7 @@ export function Waveform({
                   duration: 2.4,
                   delay: (i / samples) * 1.2,
                   repeat: Infinity,
-                  ease: 'easeInOut',
+                  ease: "easeInOut",
                 }
           }
         />
