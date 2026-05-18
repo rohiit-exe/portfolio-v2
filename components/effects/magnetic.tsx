@@ -1,11 +1,12 @@
 'use client';
 
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, type HTMLMotionProps } from 'framer-motion';
 import { forwardRef, useRef } from 'react';
 import { usePrefersReducedMotion } from '@/hooks/use-prefers-reduced-motion';
 import { cn } from '@/lib/utils';
 
-interface MagneticProps extends React.HTMLAttributes<HTMLDivElement> {
+interface MagneticProps
+  extends Omit<HTMLMotionProps<'div'>, 'onPointerMove' | 'onPointerLeave'> {
   strength?: number;
   as?: 'div' | 'span';
 }
@@ -15,7 +16,7 @@ interface MagneticProps extends React.HTMLAttributes<HTMLDivElement> {
  * Spring-smoothed, GPU-only translate, disabled for reduced-motion.
  */
 export const Magnetic = forwardRef<HTMLDivElement, MagneticProps>(function Magnetic(
-  { children, strength = 0.25, className, ...rest },
+  { children, strength = 0.25, className, as: _as, style, ...rest },
   forwardedRef,
 ) {
   const reduced = usePrefersReducedMotion();
@@ -48,7 +49,7 @@ export const Magnetic = forwardRef<HTMLDivElement, MagneticProps>(function Magne
       }}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      style={{ x: sx, y: sy }}
+      style={{ ...style, x: sx, y: sy }}
       className={cn('inline-block', className)}
       {...rest}
     >
