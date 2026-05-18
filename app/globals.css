@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 14% 5%;
+    --foreground: 36 24% 92%;
+
+    --card: 240 14% 7%;
+    --card-foreground: 36 24% 92%;
+
+    --popover: 240 14% 7%;
+    --popover-foreground: 36 24% 92%;
+
+    --primary: 271 91% 65%;
+    --primary-foreground: 240 14% 5%;
+
+    --secondary: 240 12% 12%;
+    --secondary-foreground: 36 24% 92%;
+
+    --muted: 240 12% 12%;
+    --muted-foreground: 36 10% 65%;
+
+    --accent: 199 89% 48%;
+    --accent-foreground: 240 14% 5%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 36 24% 92%;
+
+    --border: 240 12% 18%;
+    --input: 240 12% 18%;
+    --ring: 271 91% 65%;
+
+    --radius: 0.625rem;
+  }
+
+  * {
+    @apply border-[hsl(var(--border))];
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-ink-50 text-bone-50 font-sans;
+    font-feature-settings: 'ss01', 'cv11', 'cv02';
+    background-image:
+      radial-gradient(1200px 600px at 20% -10%, rgba(168, 85, 247, 0.10), transparent 60%),
+      radial-gradient(900px 500px at 90% 10%, rgba(14, 165, 233, 0.07), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-magenta-500/30 text-bone-50;
+  }
+
+  /* Custom scrollbar — feels like studio rack equipment */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-ink-50;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-ink-300 rounded-full border-2 border-ink-50;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-magenta-600;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Focus rings */
+  :focus-visible {
+    @apply outline-none ring-2 ring-magenta-500 ring-offset-2 ring-offset-ink-50;
+  }
+}
+
+@layer components {
+  .container-studio {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-8;
+  }
+
+  .text-display {
+    @apply font-display tracking-tight;
+    font-feature-settings: 'ss01';
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, #F5F0E6 0%, #C77DFF 50%, #38BDF8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-amber {
+    background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass-panel {
+    @apply relative overflow-hidden rounded-xl border border-ink-300/60 bg-ink-100/40 backdrop-blur-md;
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.04),
+      0 1px 2px 0 rgba(0, 0, 0, 0.5),
+      0 20px 60px -20px rgba(168, 85, 247, 0.08);
+  }
+
+  .glass-panel-hover {
+    @apply transition-all duration-500 ease-studio hover:border-magenta-600/40 hover:bg-ink-100/60;
+  }
+
+  .studio-divider {
+    @apply relative h-px w-full overflow-hidden bg-ink-300/50;
+  }
+  .studio-divider::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(199, 125, 255, 0.5), transparent);
+    animation: shimmer 8s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+  }
+
+  /* Vinyl record */
+  .vinyl-disc {
+    background:
+      radial-gradient(circle at center, transparent 28%, rgba(255,255,255,0.04) 28.5%, transparent 29%),
+      radial-gradient(circle at center, transparent 32%, rgba(255,255,255,0.04) 32.5%, transparent 33%),
+      radial-gradient(circle at center, transparent 36%, rgba(255,255,255,0.04) 36.5%, transparent 37%),
+      radial-gradient(circle at center, transparent 40%, rgba(255,255,255,0.04) 40.5%, transparent 41%),
+      radial-gradient(circle at center, transparent 44%, rgba(255,255,255,0.04) 44.5%, transparent 45%),
+      radial-gradient(circle at center, #0B0A10 18%, #1A1822 19%, #08070C 100%);
+  }
+
+  /* Film grain overlay */
+  .film-grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Tape-loading horizontal bar (used as section reveals) */
+  .tape-bar {
+    @apply relative h-[2px] w-full overflow-hidden bg-ink-300;
+  }
+  .tape-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, #C77DFF, #38BDF8, transparent);
+    transform: translateX(-100%);
+    animation: tape-traverse 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  @keyframes tape-traverse {
+    to { transform: translateX(100%); }
+  }
+
+  /* Cassette label */
+  .cassette-label {
+    @apply relative rounded-md bg-bone-50 text-ink-50 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em];
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1), 0 0 0 1px rgba(245, 240, 230, 0.2);
+  }
+  .cassette-label::before,
+  .cassette-label::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #08070C;
+    transform: translateY(-50%);
+  }
+  .cassette-label::before { left: 4px; }
+  .cassette-label::after  { right: 4px; }
+}
+
+@layer utilities {
+  .ease-studio {
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .perspective-1000 { perspective: 1000px; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .gpu { transform: translate3d(0, 0, 0); will-change: transform; }
+  .mask-fade-y {
+    mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+  }
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+}
