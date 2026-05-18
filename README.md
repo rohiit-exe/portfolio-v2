@@ -86,17 +86,17 @@ CONTACT_EMAIL=you@yourdomain.com
 
 ## 🎚 Sections
 
-| # | Track | What it is |
-|---|---|---|
-| 1 | **Hero** | Cinematic landing — display headline, "Now Playing" engineering board, live equalizer, social links. |
-| 2 | **About** | Story + studio-channel cards (interfaces as instruments, perf as design, architecture). |
-| 3 | **Experience** | Vinyl-tracklist timeline. Sticky spinning record on the side. |
-| 4 | **Projects** | Album-cover hover cards — catalog #, runtime, metrics, stack. |
-| 5 | **Skills** | Mixing-board EQ — six channels (Frontend, Architecture, Performance, AI/Streaming, Tooling, Platforms). |
-| 6 | **Performance** | Animated counters for the real wins (36% rendering, 45% bundles, Lighthouse 90+, 5k+ users, 10+ apps). |
-| 7 | **Playground** | **★ The showpiece.** Streaming console (fake token-by-token SSE) + mouse-reactive signal meter. |
-| 8 | **Philosophy** | Production notes — mentorship, architecture, product, performance. |
-| 9 | **Contact** | Final outro — form + studio-status card + EQ. |
+| #   | Track           | What it is                                                                                              |
+| --- | --------------- | ------------------------------------------------------------------------------------------------------- |
+| 1   | **Hero**        | Cinematic landing — display headline, "Now Playing" engineering board, live equalizer, social links.    |
+| 2   | **About**       | Story + studio-channel cards (interfaces as instruments, perf as design, architecture).                 |
+| 3   | **Experience**  | Vinyl-tracklist timeline. Sticky spinning record on the side.                                           |
+| 4   | **Projects**    | Album-cover hover cards — catalog #, runtime, metrics, stack.                                           |
+| 5   | **Skills**      | Mixing-board EQ — six channels (Frontend, Architecture, Performance, AI/Streaming, Tooling, Platforms). |
+| 6   | **Performance** | Animated counters for the real wins (36% rendering, 45% bundles, Lighthouse 90+, 5k+ users, 10+ apps).  |
+| 7   | **Playground**  | **★ The showpiece.** Streaming console (fake token-by-token SSE) + mouse-reactive signal meter.         |
+| 8   | **Philosophy**  | Production notes — mentorship, architecture, product, performance.                                      |
+| 9   | **Contact**     | Final outro — form + studio-status card + EQ.                                                           |
 
 ---
 
@@ -169,15 +169,15 @@ CONTACT_EMAIL=you@yourdomain.com
 
 ## 🥚 Easter eggs & micro-interactions
 
-| Trigger | Effect |
-|---|---|
-| **Konami code** (↑ ↑ ↓ ↓ ← → ← → B A) | Spinning vinyl + "Side B unlocked" toast |
-| **`G` then `A / W / P / S / L / C / H`** | Vim-style nav (about, work, projects, skills, playground, contact, hero) |
-| **Hover any project card** | Cover art revealed equalizer pops in |
-| **Hover any button wrapped in `<Magnetic>`** | Subtle pull toward cursor |
-| **Cursor on signal meter (Playground)** | Live pixel grid follows the pointer |
-| **Cursor anywhere** | A small bone dot + lagging ring (hidden on touch) |
-| **Press play in Playground** | Tokens stream in with cursor blink, stop button works |
+| Trigger                                      | Effect                                                                   |
+| -------------------------------------------- | ------------------------------------------------------------------------ |
+| **Konami code** (↑ ↑ ↓ ↓ ← → ← → B A)        | Spinning vinyl + "Side B unlocked" toast                                 |
+| **`G` then `A / W / P / S / L / C / H`**     | Vim-style nav (about, work, projects, skills, playground, contact, hero) |
+| **Hover any project card**                   | Cover art revealed equalizer pops in                                     |
+| **Hover any button wrapped in `<Magnetic>`** | Subtle pull toward cursor                                                |
+| **Cursor on signal meter (Playground)**      | Live pixel grid follows the pointer                                      |
+| **Cursor anywhere**                          | A small bone dot + lagging ring (hidden on touch)                        |
+| **Press play in Playground**                 | Tokens stream in with cursor blink, stop button works                    |
 
 ---
 
