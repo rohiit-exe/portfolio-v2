@@ -1,32 +1,51 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { toast } from 'sonner';
-import { Mail, Github, Linkedin, ArrowRight, Send } from 'lucide-react';
-import { SectionHeading } from '@/components/shared/section-heading';
-import { GlassCard } from '@/components/shared/glass-card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Equalizer } from '@/components/effects/equalizer';
-import { Magnetic } from '@/components/effects/magnetic';
-import { SITE, SOCIALS } from '@/lib/constants';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { toast } from "sonner";
+import { Mail, Github, Linkedin, ArrowRight, Send } from "lucide-react";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { GlassCard } from "@/components/shared/glass-card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Equalizer } from "@/components/effects/equalizer";
+import { Magnetic } from "@/components/effects/magnetic";
+import { SITE, SOCIALS } from "@/lib/constants";
+import { supabase } from "@/app/supabase";
 
 export function Contact() {
   const [submitting, setSubmitting] = useState(false);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     setSubmitting(true);
 
-    // Replace with your real endpoint (e.g. Resend / Formspree / API route)
-    await new Promise((r) => setTimeout(r, 900));
+    const formData = new FormData(e.currentTarget);
 
-    toast.success('Track received — recording in progress', {
-      description: 'I’ll get back within 24 hours, often sooner.',
-    });
-    (e.target as HTMLFormElement).reset();
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      company: formData.get("company"),
+      message: formData.get("message"),
+    };
+
+    console.log(data);
+
+    const { error } = await supabase.from("contacts").insert([data]);
+
+    if (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    } else {
+      toast.success("Track receiveddd — recording in progress", {
+        description: "I’ll get back within 24 hours, often sooner.",
+      });
+
+      (e.target as HTMLFormElement).reset();
+    }
+
     setSubmitting(false);
   };
 
@@ -37,7 +56,8 @@ export function Contact() {
           eyebrow="TRACK 08 · OUTRO"
           title={
             <>
-              Let’s press <span className="text-gradient-warm">the next record.</span>
+              Let’s press{" "}
+              <span className="text-gradient-warm">the next record.</span>
             </>
           }
           description="Open to senior IC and tech-lead roles building AI-powered products. Always up for a thoughtful conversation."
@@ -58,11 +78,14 @@ export function Contact() {
               </div>
 
               <h3 className="mt-6 font-display text-3xl text-bone-50 md:text-4xl">
-                Send a brief.<br />Get a real reply.
+                Send a brief.
+                <br />
+                Get a real reply.
               </h3>
               <p className="mt-4 leading-relaxed text-bone-200/85">
-                No bots, no templates. Whether it’s a senior IC role, a freelance build or
-                advisory work — drop a note and we’ll find time.
+                No bots, no templates. Whether it’s a senior IC role, a
+                freelance build or advisory work — drop a note and we’ll find
+                time.
               </p>
 
               <div className="mt-8 space-y-3">
@@ -72,8 +95,18 @@ export function Contact() {
                   value={SITE.email}
                   href={SOCIALS.email}
                 />
-                <ContactRow icon={Github} label="GitHub" value="@rohitnegi" href={SOCIALS.github} />
-                <ContactRow icon={Linkedin} label="LinkedIn" value="rohitnegi" href={SOCIALS.linkedin} />
+                <ContactRow
+                  icon={Github}
+                  label="GitHub"
+                  value="@rohitnegi"
+                  href={SOCIALS.github}
+                />
+                <ContactRow
+                  icon={Linkedin}
+                  label="LinkedIn"
+                  value="rohitnegi"
+                  href={SOCIALS.linkedin}
+                />
               </div>
 
               <div className="mt-8 border-t border-ink-300/60 pt-5">
@@ -90,7 +123,7 @@ export function Contact() {
             onSubmit={onSubmit}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <GlassCard>
@@ -99,12 +132,20 @@ export function Contact() {
                   <Input name="name" required placeholder="Your name" />
                 </Field>
                 <Field label="Email">
-                  <Input name="email" type="email" required placeholder="you@studio.com" />
+                  <Input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="you@studio.com"
+                  />
                 </Field>
               </div>
               <div className="mt-4">
                 <Field label="Company / Role">
-                  <Input name="company" placeholder="Optional · what are you building?" />
+                  <Input
+                    name="company"
+                    placeholder="Optional · what are you building?"
+                  />
                 </Field>
               </div>
               <div className="mt-4">
@@ -123,12 +164,18 @@ export function Contact() {
                   Avg. reply · &lt; 24 hours
                 </p>
                 <Magnetic strength={0.18}>
-                  <Button type="submit" disabled={submitting} variant="accent" size="lg">
+                  <Button
+                    type="submit"
+                    disabled={submitting}
+                    variant="accent"
+                    size="lg"
+                  >
                     {submitting ? (
                       <>Sending…</>
                     ) : (
                       <>
-                        Press send <Send className="h-4 w-4" strokeWidth={1.5} />
+                        Press send{" "}
+                        <Send className="h-4 w-4" strokeWidth={1.5} />
                       </>
                     )}
                   </Button>
@@ -144,7 +191,13 @@ export function Contact() {
 
 /* ----------- helpers ----------- */
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="block">
       <span className="mb-2 block font-mono text-[10px] uppercase tracking-[0.2em] text-bone-400">
@@ -169,12 +222,15 @@ function ContactRow({
   return (
     <a
       href={href}
-      target={href.startsWith('http') ? '_blank' : undefined}
+      target={href.startsWith("http") ? "_blank" : undefined}
       rel="noreferrer"
       className="group flex items-center justify-between rounded-md border border-ink-300/50 bg-ink-200/30 p-3 transition-all duration-300 hover:border-magenta-600/40 hover:bg-ink-200/60"
     >
       <span className="flex items-center gap-3">
-        <Icon className="h-4 w-4 text-bone-400 group-hover:text-magenta-400" strokeWidth={1.5} />
+        <Icon
+          className="h-4 w-4 text-bone-400 group-hover:text-magenta-400"
+          strokeWidth={1.5}
+        />
         <span className="text-sm text-bone-50">{value}</span>
       </span>
       <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-bone-400 group-hover:text-bone-200">
